@@ -1,0 +1,26 @@
+{
+  "name": "databases-nodejs-demo",
+  "version": "1.0.0",
+  "description": "Databases NodeJS Demo",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "create-data": "node dummyDataCreator/creator.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "connect-flash": "^0.1.1",
+    "custom-env": "^2.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "faker": "^5.5.3",
+    "fs": "^0.0.1-security",
+    "mysql2": "^2.3.3"
+  }
+}

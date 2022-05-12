@@ -1,0 +1,5 @@
+CREATE INDEX idx_project_id ON project(project_ID)
+CREATE INDEX idx_organization_id ON organization(organization_ID)
+CREATE INDEX idx_employee_id ON ELIDEK_employee(employee_ID)
+CREATE INDEX idx_program_id ON ELIDEK_program(program_ID)
+CREATE INDEX idx_reseaarcher_id ON researcher(researcher_ID)
