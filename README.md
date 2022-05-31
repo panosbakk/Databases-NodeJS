@@ -30,23 +30,6 @@ DB_PASS=dbpass
 DB=db-name
 ```
 
-## Useful Tools
-1. Database Administration Tools like [Dbeaver](https://dbeaver.io/), [Navicat](https://www.navicat.com/en/), [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
-
-## Project Folder Hierarchy
-1. controllers - the logic of the routes (where the sql queries take place, and then the result can be either returned rendered or in other ways like JSON, csv etc.
-2. public - all publicly accessible files that a user of the system can have access (usually css, icons, static pages etc)
-3. routes - the endpoints of the application. Endpoints are simply a unique URL where a specific task is completed. For example http://localhost:3000/signin is used for signing in an application, http://localhost:3000/user/5 is to get the user with the id eq to 5 etc
-4. utils - can contain any utilities you want for your project, for example the connection of the database, so as you can just import and use it when needed (mostly in controllers)
-5.  views - the pages of the project (More on what the templating engine does)
-
-## What is a Templating Engine
-A template engine enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. This approach makes it easier to design an HTML page.
-
-### Alternatives of EJS
-1. [Handlebars](https://handlebarsjs.com/)
-2. [Pug](https://pugjs.org/api/getting-started.html)
-
 ## NodeJS General Information
 1. To initialize a new NodeJS Project, create the project folder, open a terminal and use the command ```npm init```
 2. To install a new package use ```npm i [package-name]```. If you want to save the package in DevDependencies use ```npm i [package-name] --save-dev```
