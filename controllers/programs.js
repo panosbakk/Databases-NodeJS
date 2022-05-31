@@ -24,7 +24,7 @@ exports.getPrograms = (req, res, next) => {
 
 }
 
-/* Controller to create a new student in the database */
+/* Controller to create a new program in the database */
 exports.postProgram = (req, res, next) => {
 
     /* get necessary data sent */
@@ -48,7 +48,7 @@ exports.postProgram = (req, res, next) => {
     })
 }
 
-/* Controller to update a student in the database */
+/* Controller to update a program in the database */
 exports.postUpdateProgram = (req, res, next) => {
 
     /* get necessary data sent */
@@ -71,4 +71,26 @@ exports.postUpdateProgram = (req, res, next) => {
             res.redirect('/programs');
         })
     })
+}
+
+exports.postDeleteProgram = (req, res, next) => {
+    /* get id from params */
+    const id = req.params.id;
+    
+    /* create the connection, execute query, flash respective message and redirect to grades route */
+    pool.getConnection((err, conn) => {
+        var sqlQuery = `DELETE FROM programs WHERE id = ${id}`;
+
+        conn.promise().query(sqlQuery)
+        .then(() => {
+            pool.releaseConnection(conn);
+            req.flash('messages', { type: 'success', value: "Successfully deleted program!" })
+            res.redirect('/programs');
+        })
+        .catch(err => {
+            req.flash('messages', { type: 'error', value: "Something went wrong, Program could not be deleted." })
+            res.redirect('/programs');
+        })
+    })
+
 }

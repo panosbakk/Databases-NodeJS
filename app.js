@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
-
+const bodyparser = require('body-parser');
 require('custom-env').env('localhost');
 
 /* ROUTES and how to import routes */
@@ -10,7 +10,11 @@ require('custom-env').env('localhost');
 const layout = require('./routes/layout');
 const projects = require('./routes/projects');
 const programs = require('./routes/programs');
-
+const researchers = require('./routes/researchers');
+const employees = require('./routes/employees');
+const lastquery = require('./routes/lastquery');
+const thirdquery = require('./routes/thirdquery');
+const secondquery = require('./routes/secondquery');
 /* end of ROUTES and how to import routes */
 
 const app = express();
@@ -35,7 +39,11 @@ app.use(session({
 app.use('/', layout);
 app.use('/projects', projects);
 app.use('/programs', programs);
-
+app.use('/researchers', researchers);
+app.use('/employees', employees);
+app.use('/lastquery', lastquery);
+app.use('/thirdquery', thirdquery);
+app.use('/secondquery', secondquery);
 /* End of routes used by the project */
 
 // In case of an endpoint does not exist must return 404.html

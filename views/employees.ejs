@@ -13,49 +13,30 @@
 
 <body>
     <%- include("includes/navbar.ejs")%>
-
     <div class="container">
         <div class="row" id="row">
             <div class="col-md-12">
                 <div class="card" id="card-container">
                     <div class="card-body" id="card">
-                    <% if (projects.length == 0) { %> 
-                        <h1 style="margin-top: 5rem;">No Projects found!</h1>
+                    <% if (ELIDEK_employees.length == 0) { %> 
+                        <h1 style="margin-top: 5rem;">No Employees found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Project ID</th>
-                                        <th>Title</th>
-                                        <th>Summary</th>
-                                        <th>Budget</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Duration in Months</th>
-                                        <th>Employee ID</th>
-                                        <th>Employee Name</th>
-                                        
+                                        <th>Employee Full Name</th>
+                                        <th>Company Name</th>
+                                        <th>Total Finance</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% projects.forEach((project, _) => { %>
+                                    <% ELIDEK_employees.forEach((employee, _) => { %>
                                         <tr>
-                                            <td><%= project.id %></td>
-                                            <td><%= project.title %></td>
-                                            <td><%= project.summary %></td>
-                                            <td><%= project.budget %></td>
-                                            <td><%= project.starting_date %></td>
-                                            <td><%= project.end_date %></td>
-                                            <td><%= project.duration %></td>
-                                            <td><%= project.employee_id %></td>
-                                            <td><%= project.emp_name %></td>
-                                            <form method="GET" action="/projects/show-researchers/<%= project.id %>">
-                                                <td> 
-                                                    <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-fighter-jet"></i></button>
-                                                </td>
-                                            </form>
+                                            <td><%= employee.emp_name %></td>
+                                            <td><%= employee.company_name %></td>
+                                            <td><%= employee.total_finance %></td>
                                         </tr>
                                     <% }) %>
                                 </tbody>
@@ -67,8 +48,10 @@
             </div>
         </div>
     </div>
-    
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -106,5 +89,4 @@
         })
     </script>
 </body>
-
 </html>

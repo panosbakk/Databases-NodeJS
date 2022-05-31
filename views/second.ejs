@@ -13,49 +13,32 @@
 
 <body>
     <%- include("includes/navbar.ejs")%>
-
     <div class="container">
         <div class="row" id="row">
             <div class="col-md-12">
                 <div class="card" id="card-container">
                     <div class="card-body" id="card">
-                    <% if (projects.length == 0) { %> 
-                        <h1 style="margin-top: 5rem;">No Projects found!</h1>
+                    <% if (researchers.length == 0) { %> 
+                        <h1 style="margin-top: 5rem;">No Researchers found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>Researcher ID</th>
+                                        <th>Researcher Full Name</th>
                                         <th>Project ID</th>
-                                        <th>Title</th>
-                                        <th>Summary</th>
-                                        <th>Budget</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Duration in Months</th>
-                                        <th>Employee ID</th>
-                                        <th>Employee Name</th>
-                                        
+                                        <th>Project Title</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% projects.forEach((project, _) => { %>
+                                    <% researchers.forEach((researcher, _) => { %>
                                         <tr>
-                                            <td><%= project.id %></td>
-                                            <td><%= project.title %></td>
-                                            <td><%= project.summary %></td>
-                                            <td><%= project.budget %></td>
-                                            <td><%= project.starting_date %></td>
-                                            <td><%= project.end_date %></td>
-                                            <td><%= project.duration %></td>
-                                            <td><%= project.employee_id %></td>
-                                            <td><%= project.emp_name %></td>
-                                            <form method="GET" action="/projects/show-researchers/<%= project.id %>">
-                                                <td> 
-                                                    <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-fighter-jet"></i></button>
-                                                </td>
-                                            </form>
+                                            <td><%= researcher.researcher_id %></td>
+                                            <td><%= researcher.full_name %></td>
+                                            <td><%= researcher.project_id %></td>
+                                            <td><%= researcher.title %></td>
                                         </tr>
                                     <% }) %>
                                 </tbody>
@@ -67,7 +50,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
     <script src="/assets/js/jquery.min.js"></script>
@@ -106,5 +89,4 @@
         })
     </script>
 </body>
-
 </html>
