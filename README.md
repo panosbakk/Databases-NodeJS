@@ -1,4 +1,4 @@
-# Databases-NodeJS-Demo
+# Databases-NodeJS
 
 ## Dependencies
 1. [NodeJS](https://nodejs.org/en/)
