@@ -24,9 +24,9 @@
                         <h1 style="margin-top: 5rem;">No Projects found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
-                            <input type="text" id="myInput1" placeholder="Search by start date...">
-                            <input type="text" id="myInput2" placeholder="Search by duration...">
-                            <input type="text" id="myInput3" placeholder="Search by employee name...">
+                            <input type="text" id="myInput1" placeholder="Filter by start date...">
+                            <input type="text" id="myInput2" placeholder="Filter by duration(in months)...">
+                            <input type="text" id="myInput3" placeholder="Filter by employee name...">
                             <button class="btn btn-success" onclick="myFunction()">Apply Filters</button>
                             <button type="button" class="btn btn-secondary" onclick="reset()">Reset</button>
                             <table class="table">                                
@@ -34,7 +34,7 @@
                                     <tr>
                                         <th>Project ID</th>
                                         <th>Title</th>
-                                        <th>Summary</th>
+                                        <th style="width: 350px;">Summary</th>
                                         <th>Budget</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
@@ -50,12 +50,16 @@
                                             <td><%= project.id %></td>
                                             <td><%= project.title %></td>
                                             <td><%= project.summary %></td>
-                                            <td><%= project.budget %></td>
+                                            <td><%= project.budget %>€</td>
                                             <td><%= project.starting_date.toDateString() %></td>
-                                            <td><%= project.end_date.toDateString() %></td>
+                                            <% if (project.end_date.toDateString() != 'Thu Nov 30 1899') { %>
+                                                <td><%= project.end_date.toDateString() %></td>
+                                            <% } else { %>
+                                                <td>Not done yet!</td>
+                                            <% } %>
                                             <td><%= project.duration %></td>
                                             <td><%= project.employee_id %></td>
-                                            <td><%= project.emp_name %></td>
+                                            <td><%= project.employee_name %></td>
                                             <form method="GET" action="/projects/show-researchers/<%= project.id %>">
                                                 <td> 
                                                     <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-fighter-jet"></i></button>

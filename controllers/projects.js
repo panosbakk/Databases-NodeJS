@@ -75,34 +75,6 @@ exports.postProject = (req, res, next) => {
     })
 }
 
-exports.getSearchProject = (req, res, next) => {
-    /* get necessary data sent */
-    const date = req.body.date;
-    const duration = req.body.duration;
-    const employee_id = req.body.employee_id;
-
-    let messages = req.flash("messages");
-    if (messages.length == 0) messages = [];
-    
-    /* create the connection, execute query, flash respective message and redirect to projects route */
-    pool.getConnection((err, conn) => {
-        var sqlQuery = (`SELECT * FROM project_info WHERE starting_date = ? OR duration = ?  OR employee_id = ?`, date, duration, employee_id);
-
-        conn.promise().query(sqlQuery, [date, duration, ELIDEK_employee])
-        .then(([rows, fields]) => {
-            res.render('by-category.ejs', {
-                pageTitle: "Project Search Page",
-                projects: rows,
-                messages: messages
-            })
-        })
-        .then(() => {
-            pool.releaseConnection(conn);
-        })
-        .catch(err => console.log(err))
-    })
-}
-
 exports.postUpdateProject = (req, res, next) => {
 
     /* get necessary data sent */

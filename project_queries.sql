@@ -4,6 +4,8 @@
 
 SELECT * from programs;
 
+SET @id = 3;
+
 SELECT DISTINCT
 researchers.id,
 CONCAT(first_name, ' ', last_name) as full_name,
@@ -12,7 +14,7 @@ sex
 FROM researchers
 INNER JOIN project_researcher_relationship ON project_researcher_relationship.researcher_id = id
 INNER JOIN projects ON project_researcher_relationship.project_id = projects.id
-WHERE projects.id = ?
+WHERE projects.id = @id;
 ORDER BY researchers.id
 
 SET @starting_date = '';
@@ -30,7 +32,7 @@ SELECT * FROM projects_by_researcher;
 SELECT * FROM project_info;
 
 /* =====================
-	QUERY 3.3 !!! leipei to Teleutaio etos !!!
+	QUERY 3.3 !!! leipei to Teleutaio etos/ennoeitai? !!!
 ======================*/
 
 SET @field_name = 'Natural science';
@@ -41,30 +43,36 @@ INNER JOIN project_researcher_relationship ON project_researcher_relationship.pr
 INNER JOIN researchers ON project_researcher_relationship.researcher_id = researchers.id
 INNER JOIN project_scientific_field ON project_scientific_field.project_id = projects.id
 INNER JOIN scientific_fields ON project_scientific_field.field_id = scientific_fields.id
-WHERE field_name = @field_name AND projects.end_date = null
+WHERE field_name = @field_name AND projects.end_date = '0000-00-00'
 
 /* =====================
-	QUERY 3.4 ??????????
+	QUERY 3.4 !!! PROBABLY CORRECT !!!
 ======================*/
 
-SELECT
-org_name, abbreviation, COUNT(organizations.id)
-FROM projects
-INNER JOIN organizations ON projects.organization_id = organizations.id
-WHERE 2 consecutive years
-GROUP BY organizations.id
-HAVING COUNT(organizations.id) >= 10
+SELECT DISTINCT
+A.organization_id, org_name, COUNT(A.id) AS projects_number
+FROM projects A
+INNER JOIN organizations ON A.organization_id = organizations.id
+WHERE EXISTS (
+    SELECT 1 FROM projects B
+	INNER JOIN organizations ON B.organization_id = organizations.id
+    WHERE B.organization_id = A.organization_id
+    AND year(B.starting_date) = year(A.starting_date) + 1
+)
+GROUP BY A.organization_id
+HAVING COUNT(A.id) >= 1
 
 /* =====================
 	QUERY 3.5 !!! PROBABLY CORRECT !!!
 ======================*/
 
 SELECT DISTINCT field_pair, COUNT(field_pair) AS sum
-FROM
-(SELECT CONCAT(A.field_id, ' ', B.field_id) AS field_pair, A.project_id
-FROM project_scientific_field A, project_scientific_field B
-WHERE A.field_id != B.field_id AND A.project_id = B.project_id
-ORDER BY A.project_id) AS kekw
+FROM (
+	SELECT CONCAT(A.field_id, ' ', B.field_id) AS field_pair, A.project_id
+	FROM project_scientific_field A, project_scientific_field B
+	WHERE A.field_id != B.field_id AND A.project_id = B.project_id
+	ORDER BY A.project_id
+) AS kekw
 WHERE field_pair LIKE '1_2' OR field_pair LIKE '1_3' OR field_pair LIKE '1_4' OR field_pair LIKE '2_3' OR field_pair LIKE '2_4' OR field_pair LIKE '3_4'
 GROUP BY kekw.field_pair
 ORDER BY sum DESC, field_pair ASC
@@ -90,7 +98,7 @@ ORDER BY projects_number DESC
 
 SELECT emp_name, org_name AS company_name, SUM(projects.budget) AS total_finance
 FROM ELIDEK_employees
-INNER JOIN projects ON ELIDEK_employees.project_id = projects.id
+INNER JOIN projects ON projects.employee_id = ELIDEK_employees.id
 INNER JOIN organizations ON projects.organization_id = organizations.id
 INNER JOIN company ON company.organization_id = organizations.id
 GROUP BY organizations.id

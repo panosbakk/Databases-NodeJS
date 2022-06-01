@@ -12,7 +12,8 @@ CREATE TABLE projects
 	starting_date date not null,
     end_date date,
     CONSTRAINT more_than_100k CHECK (budget > 100000.00),
-    CONSTRAINT less_than_1m CHECK (budget < 1000000.00)
+    CONSTRAINT less_than_1m CHECK (budget < 1000000.00),
+    CONSTRAINT dates CHECK (TIMESTAMPDIFF(month, starting_date, end_date) < 48)
 );
 
 DROP TABLE IF EXISTS researchers;
@@ -224,7 +225,3 @@ ADD field_id int,
 ADD FOREIGN KEY (field_id) REFERENCES scientific_fields(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 ADD scientific_director_id int,
 ADD FOREIGN KEY (scientific_director_id) REFERENCES researchers(id) ON DELETE RESTRICT ON UPDATE CASCADE;
-
-ALTER TABLE ELIDEK_employees
-ADD project_id int,
-ADD FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE RESTRICT ON UPDATE CASCADE;

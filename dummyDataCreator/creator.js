@@ -12,8 +12,8 @@ for (i = 0; i < DUMMY_PROJECTS_DATA_NUMBER; i++) {
     summary = faker.lorem.sentences(3);
     budget = faker.datatype.float({ max: 1000000.00 , min: 100000.00 , precision: 0.01});
     if (i % 2 == 0) {
-      starting_date = faker.date.past(3, '2021-05-16T00:00:00.000Z').toISOString();
-      end_date = faker.date.future(1, '2021-05-31T00:00:00.000Z').toISOString();
+      starting_date = faker.date.past(2, '2021-05-31T00:00:00.000Z').toISOString();
+      end_date = faker.date.future(1, '2022-05-31T00:00:00.000Z').toISOString();
     } else {
       starting_date = faker.date.past(1, '2022-05-31T00:00:00.000Z').toISOString();
       end_date = null;
@@ -98,16 +98,15 @@ fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
 });
 
 /* ELIDEK EMPLOYEES */
-DUMMY_EMPLOYEES_DATA_NUMBER = 50;
+DUMMY_EMPLOYEES_DATA_NUMBER = 25;
 TABLE_NAME = "ELIDEK_employees";
-TABLE_COLUMNS = ["emp_name", "project_id"];
+TABLE_COLUMNS = ["emp_name"];
 content = "";
 
 for (i = 0; i < DUMMY_EMPLOYEES_DATA_NUMBER; i++) {
   emp_name = faker.name.findName();
-  project_id = i + 1;
   content += "INSERT INTO " + TABLE_NAME + " (" + TABLE_COLUMNS.join(",") + ') VALUES ("' +
-  emp_name + '","' + project_id + '");\n';
+  emp_name + '");\n';
 }
 
 fs.writeFile('dummy_data_' + TABLE_NAME + '.txt', content, (err) => {
@@ -142,7 +141,7 @@ TABLE_COLUMNS = ["organization_id", "phone"];
 content = "";
 
 for (i = 0; i < DUMMY_PHONES_DATA_NUMBER; i++) {
-  organization_id = faker.datatype.number({ min: 1, max: 30});
+  organization_id = faker.datatype.number({ min: 1, max: DUMMY_ORGANIZATIONS_DATA_NUMBER});
   phone = faker.phone.phoneNumber('210#######');
   content += "INSERT INTO " + TABLE_NAME + " (" + TABLE_COLUMNS.join(",") + ') VALUES ("' +
   organization_id + '","' + phone + '");\n';
@@ -240,10 +239,11 @@ TABLE_COLUMNS = ["employee_id", "organization_id"];
 content = "";
 
 for (i = 0; i < DUMMY_PROJECTS_DATA_NUMBER; i++) {
-  employee_id = i + 1;
+  project_id = i + 1;
+  employee_id = i % DUMMY_EMPLOYEES_DATA_NUMBER + 1;
   organization_id = i % 30 + 1;
   content += "UPDATE projects SET employee_id = " +
-  employee_id + " , organization_id = " + organization_id + " WHERE id = " + employee_id + ';\n';
+  employee_id + " , organization_id = " + organization_id + " WHERE id = " + project_id + ';\n';
 }
 
 fs.writeFile('dummy_data_updates.txt', content, (err) => {
