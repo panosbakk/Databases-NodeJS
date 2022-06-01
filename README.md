@@ -1,4 +1,4 @@
-# Databases-NodeJS-Demo
+# Databases-NodeJS
 
 ## Demo created with other Languages and Technologies
 1. [Java](https://github.com/ChristosHadjichristofi/Databases-Java-Demo)
