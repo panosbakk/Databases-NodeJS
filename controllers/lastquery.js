@@ -1,9 +1,9 @@
 const { pool } = require('../utils/database');
 
 exports.getLastQuery = (req, res, next) => {
-
     let messages = req.flash("messages");
     if (messages.length == 0) messages = [];
+    
     
     pool.getConnection((err, conn) => {
         var sqlQuery = (`SELECT DISTINCT

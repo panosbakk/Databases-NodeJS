@@ -49,18 +49,35 @@ WHERE field_name = @field_name AND projects.end_date = '0000-00-00'
 	QUERY 3.4 !!! PROBABLY CORRECT !!!
 ======================*/
 
+SELECT l.organization_id, l.org_name, l.projects_number
+FROM (
 SELECT DISTINCT
 A.organization_id, org_name, COUNT(A.id) AS projects_number
 FROM projects A
 INNER JOIN organizations ON A.organization_id = organizations.id
 WHERE EXISTS (
-    SELECT 1 FROM projects B
+	SELECT 1 FROM projects B
 	INNER JOIN organizations ON B.organization_id = organizations.id
-    WHERE B.organization_id = A.organization_id
-    AND year(B.starting_date) = year(A.starting_date) + 1
+	WHERE B.organization_id = A.organization_id
+	AND year(A.starting_date) = year(B.starting_date) + 1
 )
 GROUP BY A.organization_id
-HAVING COUNT(A.id) >= 1
+) AS l INNER JOIN (
+SELECT DISTINCT
+A.organization_id, COUNT(A.id) AS projects_number
+FROM projects A
+INNER JOIN organizations ON A.organization_id = organizations.id
+WHERE EXISTS (
+	SELECT 1 FROM projects B
+	INNER JOIN organizations ON B.organization_id = organizations.id
+	WHERE B.organization_id = A.organization_id
+	AND year(B.starting_date) = year(A.starting_date) + 1
+)
+GROUP BY A.organization_id
+) AS m ON l.organization_id = m.organization_id
+WHERE l.projects_number = m.projects_number AND l.projects_number >= 1
+GROUP BY l.organization_id
+ORDER BY l.projects_number DESC
 
 /* =====================
 	QUERY 3.5 !!! PROBABLY CORRECT !!!
@@ -88,7 +105,7 @@ COUNT(project_researcher_relationship.project_id) AS projects_number
 FROM researchers
 INNER JOIN project_researcher_relationship ON project_researcher_relationship.researcher_id = researchers.id
 INNER JOIN projects ON project_researcher_relationship.project_id = projects.id
-WHERE projects.end_date = null AND TIMESTAMPDIFF(year, researchers.birth_date, CURRENT_DATE()) < 40
+WHERE projects.end_date IS NULL AND TIMESTAMPDIFF(year, researchers.birth_date, CURRENT_DATE()) < 40 
 GROUP BY researchers.id
 ORDER BY projects_number DESC
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -11,7 +10,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
-<body>
+<body id="body">
     
     <%- include("includes/navbar.ejs")%>
 
@@ -45,7 +44,7 @@
                 </div>
             </div>
         </div>
-
+    
         <div class="row" id="row-2">
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
@@ -68,10 +67,22 @@
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
+                        <h4 class="card-title">View ELIDEK employees</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show projects<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/employees">Show</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="row-3">
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
                         <h4 class="card-title">View third query</h4>
                         <p class="card-text" id="paragraph">Simple Query to CYKA<br></p>
                         <div class="dropdown">
-                            <button>Select Scientific Field</button>
+                            <button class="dropbtn">Select Scientific Field</button>
                             <div class="dropdown-content">
                                 <a href="/thirdquery/1">Natural Science</a>
                                 <a href="/thirdquery/2">Formal Science</a>
@@ -79,18 +90,6 @@
                                 <a href="/thirdquery/4">Applied Science</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>    
-        </div>
-
-        <div class="row" id="row-3">
-            <div class="col-md-4">
-                <div class="card" id="card-container-layout">
-                    <div class="card-body" id="card">
-                        <h4 class="card-title">View ELIDEK employees</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show projects<br></p>
-                        <a class="btn btn-primary" id="show-btn" href="/employees">Show</a>
                     </div>
                 </div>
             </div>
@@ -113,8 +112,27 @@
                 </div>
             </div>
         </div>
+        <div class="row" id="row-4">
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View fields</h4>
+                        <p class="card-text" id="paragraph">Simple Query to show top 3 field pairs<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/fifthquery">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">Create Researcher</h4>
+                        <p class="card-text" id="paragraph">Enter a new researcher into the database<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/researcher-creation-page">Create</a>
+                    </div>
+                </div>
+            </div>
+        </div>    
     </div>
-</div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

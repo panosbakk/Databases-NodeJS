@@ -1,6 +1,3 @@
-drop database mydb;
-create database mydb;
-use mydb;
 source C:\Users\Pipen\Desktop\Databases-NodeJS\create_tables.sql
 source C:\Users\Pipen\Desktop\Databases-NodeJS\create_views.sql
 source C:\Users\Pipen\Desktop\Databases-NodeJS\dummyDataCreator\dummy_data_organizations.txt

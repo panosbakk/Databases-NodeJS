@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
-<body>
+<body id="body">
+
     <%- include("includes/navbar.ejs")%>
+
     <div class="container">
         <div class="row" id="row">
             <div class="col-md-12">
@@ -22,12 +24,13 @@
                         <h1 style="margin-top: 5rem;">No Researchers found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
+                            <br>
                             <input type="text" id="myInput1" placeholder="Filter by researcher ID...">
                             <input type="text" id="myInput2" placeholder="Filter by researcher name...">
                             <button class="btn btn-success" onclick="myFunction()">Apply Filters</button>
                             <button type="button" class="btn btn-secondary" onclick="reset()">Reset</button>
                             <table class="table">
-                                <thead>
+                                <thead id="thead">
                                     <tr>
                                         <th>Researcher ID</th>
                                         <th>Researcher Full Name</th>
@@ -36,7 +39,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                     <% researchers.forEach((researcher, _) => { %>
                                         <tr>
                                             <td><%= researcher.researcher_id %></td>
@@ -62,6 +65,15 @@
         input2 = document.getElementById("myInput2");
         filter1 = input1.value.toUpperCase();
         filter2 = input2.value.toUpperCase();
+        if (filter1 == '' && filter2 == '') {
+            return;
+        }
+        if (filter1 == '') {
+            filter1 = "XXXXXX";
+        }
+        if (filter2 == '') {
+            filter2 = "XXXXXX";
+        }
         table = document.getElementById("card");
         tr = table.getElementsByTagName("tr");
       
@@ -96,7 +108,6 @@
   </script>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 

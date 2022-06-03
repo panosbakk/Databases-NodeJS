@@ -10,7 +10,7 @@ exports.getProjects = (req, res, next) => {
     /* create the connection, execute query, render data */
     pool.getConnection((err, conn) => {
         
-        conn.promise().query('SELECT * FROM project_info')
+        conn.promise().query('SELECT * FROM project_info ORDER BY id ASC')
         .then(([rows, fields]) => {
             res.render('projects.ejs', {
                 pageTitle: "Projects Page",
@@ -58,11 +58,17 @@ exports.postProject = (req, res, next) => {
     const title = req.body.title;
     const summary = req.body.summary;
     const budget = req.body.budget;
+    const starting_date = req.body.starting_date;
+    const end_date = req.body.end_date;
+    const employee_id = req.body.employee_id;
+
+    let messages = req.flash("messages");
+    if (messages.length == 0) messages = [];
     /* create the connection, execute query, flash respective message and redirect to grades route */
     pool.getConnection((err, conn) => {
-        var sqlQuery = `INSERT INTO projects(title, summary, budget) VALUES(${title}, ${summary}, ${budget})`;
+        var sqlQuery = `INSERT INTO projects(title, summary, budget, starting_date, end_date, employee_id) VALUES(?, ?, ?, ?, ?, ?)`;
 
-        conn.promise().query(sqlQuery, [title, summary, budget])
+        conn.promise().query(sqlQuery, [title, summary, budget, starting_date, end_date, employee_id])
         .then(() => {
             pool.releaseConnection(conn);
             req.flash('messages', { type: 'success', value: "Successfully added a new Project!" })
@@ -71,6 +77,31 @@ exports.postProject = (req, res, next) => {
         .catch(err => {
             req.flash('messages', { type: 'error', value: "Something went wrong, Project could not be added." })
             res.redirect('/');
+        })
+    })
+}
+
+exports.postAddResearcher = (req, res, next) => {
+
+    /* get necessary data sent */
+    const project_id = req.body.project_id;
+    const researcher_id = req.body.researcher_id;
+
+    let messages = req.flash("messages");
+    if (messages.length == 0) messages = [];
+    /* create the connection, execute query, flash respective message and redirect to grades route */
+    pool.getConnection((err, conn) => {
+        var sqlQuery = `INSERT INTO project_researcher_relationship(project_id, researcher_id) VALUES(?, ?)`;
+
+        conn.promise().query(sqlQuery, [project_id, researcher_id])
+        .then(() => {
+            pool.releaseConnection(conn);
+            req.flash('messages', { type: 'success', value: "Successfully added a new Researcher!" })
+            res.redirect('/projects/show-researchers/' + project_id);
+        })
+        .catch(err => {
+            req.flash('messages', { type: 'error', value: "Something went wrong, Researcher could not be added." })
+            res.redirect('/projects/show-researchers/' + project_id);
         })
     })
 }

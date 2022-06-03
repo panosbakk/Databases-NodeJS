@@ -22,7 +22,7 @@
 2. Import it by using ```require('custom-env').env('localhost');```
 3. ```.env.localhost``` content
 ```
-SERVER_PORT=3000
+SERVER_PORT=5000
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=dbuser

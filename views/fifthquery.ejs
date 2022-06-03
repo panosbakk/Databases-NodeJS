@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title> <%= pageTitle %> </title>
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
@@ -20,27 +19,35 @@
             <div class="col-md-12">
                 <div class="card" id="card-container">
                     <div class="card-body" id="card">
-                    <% if (thirdquerys.length == 0) { %> 
-                        <h1 style="margin-top: 5rem;">Scientific field is dead!</h1>
+                    <% if (fields.length == 0) { %> 
+                        <h1 style="margin-top: 5rem;">No fields found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead id="thead">
                                     <tr>
-                                        <th>Project ID</th>
-                                        <th>Projects Title</th>
-                                        <th>Researcher ID</th>
-                                        <th>Researcher Full Name</th>
+                                        <th>Top scientific field pairs</th>
+                                        <th>Occurences</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
-                                    <% thirdquerys.forEach((thirdquery, _) => { %>
+                                    <% fields.forEach((field, _) => { %>
                                         <tr>
-                                            <td><%= thirdquery.project_id %></td>
-                                            <td><%= thirdquery.title %></td>
-                                            <td><%= thirdquery.researcher_id %></td>
-                                            <td><%= thirdquery.full_name %></td>
+                                            <% if (field.field_pair == '1 2') { %>
+                                                <td>Natural & Formal sciences</td>
+                                            <% } else if (field.field_pair == '1 3') { %>
+                                                <td>Natural & Social sciences</td>
+                                            <% } else if (field.field_pair == '1 4') { %>
+                                                <td>Natural & Applied sciences</td>
+                                            <% } else if (field.field_pair == '2 3') { %>
+                                                <td>Formal & Social sciences</td>
+                                            <% } else if (field.field_pair == '2 4') { %>
+                                                <td>Formal & Applied sciences</td>
+                                            <% } else if (field.field_pair == '3 4') { %>
+                                                <td>Social & Applied sciences</td>
+                                            <% } %>
+                                            <td><%= field.sum %></td>
                                         </tr>
                                     <% }) %>
                                 </tbody>
@@ -52,7 +59,6 @@
             </div>
         </div>
     </div>
-
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -89,7 +95,6 @@
             });
         })
     </script>
-    
 </body>
 
 </html>
