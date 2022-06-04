@@ -41,3 +41,9 @@ DB=db-name
 ## Create Dummy Data
 1. Using the [faker](https://www.npmjs.com/package/faker/v/5.5.3) package dummy data can be created. It can create all kind of data (More on the documentation of the package)
 2. To run the ```creator.js``` script which is located inside ```dummyDataCreator``` folder, run ```npm run create-data```, which is a custom script (custom scripts can be declared in ```package.json``` and can be run with ```npm run <script-name>```)
+
+## Populating the database
+1. After running ```npm run create-data```, text files will appear inside ```dummyDataCreator``` folder. ```db-starter``` file uses them to create the database.
+2. Edit the ```db-starter``` file to have the correct source paths e.g. ```source C:\Users\myUser\Desktop\Databases-NodeJS\create_tables.sql```
+and then go to mysql and run ```source C:\myPath\Databases-NodeJS\db_starter.txt```.
+3. Database is now created and populated.
