@@ -59,7 +59,8 @@ exports.postProject = (req, res, next) => {
     const summary = req.body.summary;
     const budget = req.body.budget;
     const starting_date = req.body.starting_date;
-    const end_date = req.body.end_date;
+    let end_date = req.body.end_date;
+    if (end_date = '0000-00-00') end_date = null;
     const employee_id = req.body.employee_id;
 
     let messages = req.flash("messages");
@@ -113,12 +114,12 @@ exports.postUpdateProject = (req, res, next) => {
     const title = req.body.title;
     const summary = req.body.summary;
     const budget = req.body.budget;
-
+    const starting_date = req.body.starting_date;
     /* create the connection, execute query, flash respective message and redirect to grades route */
     pool.getConnection((err, conn) => {
-        var sqlQuery = `UPDATE projects SET title = ?, summary = ?, budget = ? WHERE id = ${id}`;
+        var sqlQuery = `UPDATE projects SET title = ?, summary = ?, budget = ?, starting_date = ? WHERE id = ${id}`;
 
-        conn.promise().query(sqlQuery, [title, summary, budget])
+        conn.promise().query(sqlQuery, [title, summary, budget, starting_date])
         .then(() => {
             pool.releaseConnection(conn);
             req.flash('messages', { type: 'success', value: "Successfully updated project!" })
@@ -129,5 +130,26 @@ exports.postUpdateProject = (req, res, next) => {
             res.redirect('/projects');
         })
     })
+}
+
+exports.postDeleteProject = (req, res, next) => {
+    /* get id from params */
+    const id = req.params.id;
+    
+    /* create the connection, execute query, flash respective message and redirect to grades route */
+    pool.getConnection((err, conn) => {
+        var sqlQuery = (`DELETE FROM projects WHERE id = ${id}`);
+        conn.promise().query(sqlQuery)
+        .then(() => {
+            pool.releaseConnection(conn);
+            req.flash('messages', { type: 'success', value: "Successfully deleted project!" })
+            res.redirect('/projects');
+        })
+        .catch(err => {
+            req.flash('messages', { type: 'error', value: "Something went wrong, Project could not be deleted." })
+            res.redirect('/projects');
+        })
+    })
+
 }
 

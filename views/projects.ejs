@@ -13,6 +13,44 @@
 
 <body id="body">
 
+    <div id="editModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><b>Edit Project</b></h4>
+            </div>
+            <div class="modal-body">
+                <form id="modal-form">
+                    <div>
+                        <label for="id"><b>Project ID</b></label>
+                        <br>
+                        <input type="text" name="id" id="id" readonly></br>
+                        <label for="title"><b>Title</b></label>
+                        <br>
+                        <input type="text" name="title" id="title"></br>
+                        <label for="summary"><b>Summary</b></label>
+                        <br>
+                        <input type="text" name="summary" id="summary"></br>
+                        <label for="budget"><b>Budget</b></label>
+                        <br>
+                        <input type="text" name="budget" id="budget"></br>
+                        <label for="starting_date"><b>Start Date</b></label>
+                        <br>
+                        <input type="date" name="starting_date" id="starting_date"></br>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="modal-form" class="btn btn-success">Update</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+      
+        </div>
+    </div>
+
     <%- include("includes/navbar.ejs")%>
 
     <div class="container">
@@ -61,6 +99,20 @@
                                             <td><%= project.duration %></td>
                                             <td><%= project.employee_id %></td>
                                             <td><%= project.employee_name %></td>
+                                            <td>
+                                                <a type="button" onclick="setModalFields(this)"
+                                                    data-toggle="modal" data-id="<%= project.id %>" 
+                                                    data-title="<%= project.title %>" data-summary="<%= project.summary %>"
+                                                    data-budget="<%= project.budget %>" data-starting_date="<%= project.starting_date %>"
+                                                    data-target="#editModal">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <form method="POST" action="/projects/delete/<%= project.id %>">
+                                                <td> 
+                                                    <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </form>
                                             <form method="GET" action="/projects/show-researchers/<%= project.id %>">
                                                 <td> 
                                                     <button style="all: unset; cursor: pointer;" type="submit"><i class="fa fa-fighter-jet"></i></button>
@@ -78,6 +130,19 @@
         </div>
     </div>
     
+    <script>
+        function setModalFields(row) {
+            document.getElementById("id").value = row.dataset.id;
+            document.getElementById("title").value = row.dataset.title;
+            document.getElementById("summary").value = row.dataset.summary;
+            document.getElementById("budget").value = row.dataset.budget;
+            document.getElementById("starting_date").value = row.dataset.starting_date;
+
+            document.getElementById("modal-form").action = "/projects/update/" + row.dataset.id;
+            document.getElementById("modal-form").method = "POST";
+        }
+    </script>   
+
     <script>
         function myFunction() {
           // Declare variables
@@ -137,6 +202,8 @@
     </script>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
