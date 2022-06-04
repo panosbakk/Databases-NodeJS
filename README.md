@@ -2,7 +2,7 @@
 
 ## Dependencies
 1. [NodeJS](https://nodejs.org/en/)
-2. [MySQL for Windows](https://dev.mysql.com/downloads/installer/)
+2. [MySQL for Windows](https://dev.mysql.com/downloads/installer/) or [XAMPP](https://www.apachefriends.org/download.html)
 
 ## Required NodeJS Dependencies
 1. [express](https://www.npmjs.com/package/express) - minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications
@@ -25,8 +25,8 @@
 SERVER_PORT=5000
 DB_HOST=localhost
 DB_PORT=3306
-DB_USER=dbuser
-DB_PASS=dbpass
+DB_USER=db-user
+DB_PASS=db-pass
 DB=db-name
 ```
 
