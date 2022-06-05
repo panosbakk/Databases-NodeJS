@@ -174,9 +174,9 @@ ALTER TABLE projects
 ADD employee_id int,
 ADD FOREIGN KEY (employee_id) REFERENCES ELIDEK_employees(id) ON DELETE SET NULL,
 ADD program_id int,
-ADD FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE,
+ADD FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE SET NULL,
 ADD organization_id int,
-ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE,
+ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE SET NULL,
 ADD scientific_director_id int,
 ADD FOREIGN KEY (scientific_director_id) REFERENCES researchers(id) ON DELETE SET NULL;
 
@@ -189,10 +189,11 @@ DELIMITER $$
 CREATE TRIGGER insert_assessment BEFORE INSERT ON assessment FOR EACH ROW
 BEGIN
 IF EXISTS (
-    SELECT * FROM project_researcher_relationship
-    WHERE researcher_id = NEW.researcher_id AND project_id = NEW.project_id
+    SELECT * FROM employee_relationship
+    INNER JOIN projects ON projects.organization_id = employee_relationship.organization_id
+    WHERE employee_relationship.researcher_id = NEW.researcher_id AND projects.id = NEW.project_id
 )
-THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "A researcher cannot assess the project he works on!";
+THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "A researcher cannot assess the project his organization handles!";
 END IF;
 END;$$
 
