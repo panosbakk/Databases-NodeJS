@@ -71,7 +71,7 @@ INNER JOIN (
 		AND year(B.starting_date) = year(A.starting_date) + 1)
 GROUP BY A.organization_id) AS m
 ON l.organization_id = m.organization_id
-WHERE l.projects_number = m.projects_number AND l.projects_number >= 1
+WHERE l.projects_number = m.projects_number AND l.projects_number >= 10
 GROUP BY l.organization_id
 ORDER BY l.projects_number DESC, l.organization_id ASC
 
