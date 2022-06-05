@@ -14,10 +14,10 @@ exports.getyoungResearchers = (req, res, next) => {
         INNER JOIN projects ON project_researcher_relationship.project_id = projects.id
         WHERE TIMESTAMPDIFF(year, researchers.birth_date, CURRENT_DATE()) < 40 AND projects.end_date IS NULL
         GROUP BY researchers.id
-        ORDER BY projects_number`)
+        ORDER BY projects_number DESC`)
         .then(([rows, fields]) => {
-            res.render('researchers.ejs', {
-                pageTitle: "Researchers Page",
+            res.render('young-researchers.ejs', {
+                pageTitle: "Young Researchers Page",
                 researchers: rows,
                 messages: messages
             })
@@ -52,4 +52,42 @@ exports.createResearcher = (req, res, next) => {
         })
     })
 
+}
+
+exports.getResearchers = (req, res, next) => {
+    let messages = req.flash("messages");
+    if (messages.length == 0) messages = [];
+    /* create the connection, execute query, flash respective message and redirect to grades route */
+    pool.getConnection((err, conn) => {
+        conn.promise().query(`SELECT * FROM researcher_info`)
+        .then(([rows, fields]) => {
+            res.render('researchers.ejs', {
+                pageTitle: "Researchers Page",
+                researchers: rows,
+                messages: messages
+            })
+        })
+        .then(() => pool.releaseConnection(conn))
+        .catch(err => console.log(err))
+    })
+}
+
+exports.postDeleteResearcher = (req, res, next) => {
+    /* get id from params */
+    const id = req.params.id;
+    
+    /* create the connection, execute query, flash respective message and redirect to grades route */
+    pool.getConnection((err, conn) => {
+        var sqlQuery = (`DELETE FROM researchers WHERE id = ${id}`);
+        conn.promise().query(sqlQuery)
+        .then(() => {
+            pool.releaseConnection(conn);
+            req.flash('messages', { type: 'success', value: "Successfully deleted Researcher!" })
+            res.redirect('/researchers');
+        })
+        .catch(err => {
+            req.flash('messages', { type: 'error', value: "Something went wrong, Researcher could not be deleted." })
+            res.redirect('/researchers');
+        })
+    })
 }

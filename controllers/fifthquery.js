@@ -20,7 +20,7 @@ exports.getFifthQuery = (req, res, next) => {
         conn.promise().query(sqlQuery)
         .then(([rows, fields]) => {
             res.render('fifthquery.ejs', {
-                pageTitle: "Fields Page",
+                pageTitle: "Scientific Fields Page",
                 fields: rows,
                 messages: messages
             })

@@ -30,7 +30,7 @@ CREATE TABLE researchers
     sex ENUM('Male', 'Female', 'Other') not null,
 	birth_date date not null,
     CONSTRAINT sex_enum CHECK (sex REGEXP 'Male|Female|Other'),
-    CONSTRAINT over_18yo CHECK (TIMESTAMPDIFF(year, birth_date, CURRENT_DATE()) >= 18)
+    CONSTRAINT over_18yo CHECK (TIMESTAMPDIFF(year, birth_date, '2022-06-05') >= 18)
 );
 
 DROP TABLE IF EXISTS organizations;
@@ -168,17 +168,17 @@ ADD FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
 ALTER TABLE researchers
 ADD organization_id int,
-ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE SET NULL;
 
 ALTER TABLE projects
 ADD employee_id int,
-ADD FOREIGN KEY (employee_id) REFERENCES ELIDEK_employees(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+ADD FOREIGN KEY (employee_id) REFERENCES ELIDEK_employees(id) ON DELETE SET NULL,
 ADD program_id int,
-ADD FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+ADD FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE,
 ADD organization_id int,
-ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+ADD FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE,
 ADD scientific_director_id int,
-ADD FOREIGN KEY (scientific_director_id) REFERENCES researchers(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+ADD FOREIGN KEY (scientific_director_id) REFERENCES researchers(id) ON DELETE SET NULL;
 
 /* ================
 	TRIGGERS

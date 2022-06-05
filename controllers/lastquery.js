@@ -11,16 +11,17 @@ exports.getLastQuery = (req, res, next) => {
         COUNT(project_researcher_relationship.project_id) AS projects_number
         FROM researchers
         INNER JOIN project_researcher_relationship ON project_researcher_relationship.researcher_id = researchers.id
-        INNER JOIN projects ON project_researcher_relationship.project_id = projects.id
-        INNER JOIN deliverable ON deliverable.project_id = projects.id
-        WHERE deliverable.project_id != project_researcher_relationship.project_id
+        WHERE NOT EXISTS (
+            SELECT * FROM deliverable WHERE deliverable.project_id = project_researcher_relationship.project_id
+        )
         GROUP BY researchers.id
-        HAVING COUNT(project_researcher_relationship.project_id) >= 5`);
+        HAVING COUNT(project_researcher_relationship.project_id) >= 2
+        ORDER BY projects_number DESC`);
 
         conn.promise().query(sqlQuery)
         .then(([rows, fields]) => {
-            res.render('researchers.ejs', {
-                pageTitle: "Researchers Page",
+            res.render('lastquery.ejs', {
+                pageTitle: "(Not) Busy Researchers Page",
                 researchers: rows,
                 messages: messages
             })

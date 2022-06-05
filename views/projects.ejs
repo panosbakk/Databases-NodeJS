@@ -24,36 +24,43 @@
             <div class="modal-body">
                 <form id="modal-form">
                     <div>
-                        <label for="id"><b>Project ID</b></label>
+                        <label for="id">Project ID</label>
                         <br>
                         <input type="text" name="id" id="id" readonly></br>
-                        <label for="title"><b>Title</b></label>
+                        <label for="title">Title</label>
                         <br>
                         <input type="text" name="title" id="title"></br>
-                        <label for="summary"><b>Summary</b></label>
+                        <label for="summary">Summary</label>
                         <br>
                         <input type="text" name="summary" id="summary"></br>
-                        <label for="budget"><b>Budget</b></label>
+                        <label for="budget">Budget</label>
                         <br>
                         <input type="text" name="budget" id="budget"></br>
-                        <label for="starting_date"><b>Start Date</b></label>
+                        <label for="starting_date">Start Date</label>
                         <br>
                         <input type="date" name="starting_date" id="starting_date"></br>
+                        <label for="end_date">End Date</label>
+                        <br>
+                        <input type="date" name="end_date" id="end_date"></br>
+                        <label for="employee_id">Employee ID</label>
+                        <br>
+                        <input type="text" name="employee_id" id="employee_id"></br>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="submit" form="modal-form" class="btn btn-success">Update</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-      
+                <div class="modal-footer">
+                    <button type="submit" form="modal-form" class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>      
         </div>
     </div>
 
     <%- include("includes/navbar.ejs")%>
 
     <div class="container">
+        <br>
+        <div id="tbody">Simply query to database to show all projects.</div>
         <div class="row" id="row">
             <div class="col-md-12">
                 <div class="card" id="card-container">
@@ -104,6 +111,7 @@
                                                     data-toggle="modal" data-id="<%= project.id %>" 
                                                     data-title="<%= project.title %>" data-summary="<%= project.summary %>"
                                                     data-budget="<%= project.budget %>" data-starting_date="<%= project.starting_date %>"
+                                                    data-end_date="<%= project.end_date %>" data-employee_id="<%= project.employee_id %>"
                                                     data-target="#editModal">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
@@ -137,6 +145,8 @@
             document.getElementById("summary").value = row.dataset.summary;
             document.getElementById("budget").value = row.dataset.budget;
             document.getElementById("starting_date").value = row.dataset.starting_date;
+            document.getElementById("end_date").value = row.dataset.end_date;
+            document.getElementById("employee_id").value = row.dataset.employee_id;
 
             document.getElementById("modal-form").action = "/projects/update/" + row.dataset.id;
             document.getElementById("modal-form").method = "POST";
