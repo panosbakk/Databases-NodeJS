@@ -73,7 +73,7 @@ GROUP BY A.organization_id) AS m
 ON l.organization_id = m.organization_id
 WHERE l.projects_number = m.projects_number AND l.projects_number >= 1
 GROUP BY l.organization_id
-ORDER BY l.projects_number DESC
+ORDER BY l.projects_number DESC, l.organization_id ASC
 
 /* =================
 	QUERY 3.5

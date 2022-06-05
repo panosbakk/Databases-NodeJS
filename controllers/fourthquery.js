@@ -38,7 +38,7 @@ exports.getFourthQuery = (req, res, next) => {
         ) AS m ON l.organization_id = m.organization_id
         WHERE l.projects_number = m.projects_number
         GROUP BY l.organization_id
-        ORDER BY l.projects_number DESC`);
+        ORDER BY l.projects_number DESC, l.organization_id ASC`);
 
         conn.promise().query(sqlQuery)
         .then(([rows, fields]) => {

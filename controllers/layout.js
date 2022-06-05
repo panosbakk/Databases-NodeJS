@@ -11,7 +11,7 @@ exports.getLanding = (req, res, next) => {
 
         /* when queries promises finish render respective data */
             res.render('landing.ejs', {
-                pageTitle: "Home page",
+                pageTitle: "Hellenic Foundation for Research & Innovation - Home page",
                 messages
             })
     })
