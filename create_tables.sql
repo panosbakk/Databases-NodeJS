@@ -188,33 +188,45 @@ DELIMITER $$
 
 CREATE TRIGGER insert_assessment BEFORE INSERT ON assessment FOR EACH ROW
 BEGIN
-IF EXISTS (SELECT * FROM project_researcher_relationship WHERE researcher_id = NEW.researcher_id AND project_id = NEW.project_id)
+IF EXISTS (
+    SELECT * FROM project_researcher_relationship
+    WHERE researcher_id = NEW.researcher_id AND project_id = NEW.project_id
+)
 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "A researcher cannot assess the project he works on!";
 END IF;
 END;$$
 
 CREATE TRIGGER insert_project_field BEFORE INSERT ON project_scientific_field FOR EACH ROW
 BEGIN
-IF EXISTS (SELECT * FROM project_scientific_field WHERE field_id = NEW.field_id AND project_id = NEW.project_id)
+IF EXISTS (
+    SELECT * FROM project_scientific_field
+    WHERE field_id = NEW.field_id AND project_id = NEW.project_id
+)
 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "This project already covers that scientific field!";
 END IF;
 END;$$
 
 CREATE TRIGGER insert_employee_relationship BEFORE INSERT ON employee_relationship FOR EACH ROW
 BEGIN
-IF EXISTS (SELECT * FROM employee_relationship WHERE researcher_id = NEW.researcher_id AND organization_id = NEW.organization_id)
+IF EXISTS (
+    SELECT * FROM employee_relationship
+    WHERE researcher_id = NEW.researcher_id AND organization_id = NEW.organization_id
+)
 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "This researcher already works for that organization!";
 END IF;
 END;$$
 
 CREATE TRIGGER insert_project_researcher BEFORE INSERT ON project_researcher_relationship FOR EACH ROW
 BEGIN
-IF EXISTS (SELECT * FROM project_researcher_relationship WHERE researcher_id = NEW.researcher_id AND project_id = NEW.project_id)
+IF EXISTS (
+    SELECT * FROM project_researcher_relationship
+    WHERE researcher_id = NEW.researcher_id AND project_id = NEW.project_id
+)
 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "This researcher already works on that project!";
 END IF;
 END;$$
 
-CREATE TRIGGER b4_insert_project_researcher BEFORE INSERT ON project_researcher_relationship FOR EACH ROW
+CREATE TRIGGER insert_project_researcher_2 BEFORE INSERT ON project_researcher_relationship FOR EACH ROW
 BEGIN
 IF ((SELECT organization_id FROM researchers WHERE id = NEW.researcher_id) != (SELECT organization_id FROM projects WHERE id = NEW.project_id))
 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "This researcher works for another organization which doesn't handle this project!";
