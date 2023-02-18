@@ -19,14 +19,14 @@
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Add Researcher</h4>
+              <h4 class="modal-title"><b>Add Researcher</b></h4>
             </div>
             <div class="modal-body">
                 <form id="modal-form">
                     <div>
-                        <label for="project_id">Project ID</label><br>
+                        <label for="project_id"><b>Project ID</b></label><br>
                         <input type="text" name="project_id" id="project_id"></br>
-                        <label for="researcher_id">Researcher ID</label><br>
+                        <label for="researcher_id"><b>Researcher ID</b></label><br>
                         <input type="text" name="researcher_id" id="researcher_id"></br>
                     </div>
                 </form>
@@ -49,6 +49,8 @@
     <%- include("includes/navbar.ejs")%>
     
     <div class="container">
+        <br>
+        <div id="tbody">Simply query to database to show all researchers working on this project.</div>
         <div class="row" id="row">
             <div class="col-md-12">
                 <div class="card" id="card-container">
@@ -60,10 +62,10 @@
                             <table class="table">
                                 <thead id="thead">
                                     <tr>
-                                        <th>researcher ID</th>
-                                        <th>Researcher Full Name</th>
-                                        <th>Researcher age</th>
-                                        <th>Researcher sex</th>
+                                        <th>Researcher ID</th>
+                                        <th>Full Name</th>
+                                        <th>Age</th>
+                                        <th>Sex</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -88,8 +90,8 @@
 
     <script>
         function setModalFields() {
-            document.getElementById("project_id").value = 1;
-            document.getElementById("researcher_id").value = 11;
+            document.getElementById("project_id").value = '';
+            document.getElementById("researcher_id").value = '';
 
             document.getElementById("modal-form").action = "/projects/add-researcher";
             document.getElementById("modal-form").method = "POST";

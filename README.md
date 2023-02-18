@@ -2,7 +2,7 @@
 
 ## Dependencies
 1. [NodeJS](https://nodejs.org/en/)
-2. [MySQL for Windows](https://dev.mysql.com/downloads/installer/)
+2. [MySQL for Windows](https://dev.mysql.com/downloads/installer/) or [XAMPP](https://www.apachefriends.org/download.html)
 
 ## Required NodeJS Dependencies
 1. [express](https://www.npmjs.com/package/express) - minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications
@@ -25,8 +25,8 @@
 SERVER_PORT=5000
 DB_HOST=localhost
 DB_PORT=3306
-DB_USER=dbuser
-DB_PASS=dbpass
+DB_USER=db-user
+DB_PASS=db-pass
 DB=db-name
 ```
 
@@ -41,3 +41,9 @@ DB=db-name
 ## Create Dummy Data
 1. Using the [faker](https://www.npmjs.com/package/faker/v/5.5.3) package dummy data can be created. It can create all kind of data (More on the documentation of the package)
 2. To run the ```creator.js``` script which is located inside ```dummyDataCreator``` folder, run ```npm run create-data```, which is a custom script (custom scripts can be declared in ```package.json``` and can be run with ```npm run <script-name>```)
+
+## Populating the database
+1. After running ```npm run create-data```, text files will appear inside ```dummyDataCreator``` folder. ```db-starter``` file uses them to create the database.
+2. Edit the ```db-starter``` file to have the correct source paths e.g. ```source C:\Users\myUser\Desktop\Databases-NodeJS\create_tables.sql```
+and then go to mysql and run ```source C:\myPath\Databases-NodeJS\db_starter.txt```.
+3. Database is now created and populated.

@@ -49,38 +49,37 @@
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
+                        <h4 class="card-title">View Programs</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show all programs</p>
+                        <a class="btn btn-primary" id="show-btn" href="/programs">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View Projects</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show all projects</p>
+                        <a class="btn btn-primary" id="show-btn" href="/projects">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
                         <h4 class="card-title">View Researchers</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show young researchers</p>
+                        <p class="card-text" id="paragraph">Simple Query to database to show all researchers</p>
                         <a class="btn btn-primary" id="show-btn" href="/researchers">Show</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" id="card-container-layout">
-                    <div class="card-body" id="card">
-                        <h4 class="card-title">View Researchers</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show researchers from last question</p>
-                        <a class="btn btn-primary" id="show-btn" href="/lastquery">Show</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" id="card-container-layout">
-                    <div class="card-body" id="card">
-                        <h4 class="card-title">View ELIDEK employees</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show projects<br></p>
-                        <a class="btn btn-primary" id="show-btn" href="/employees">Show</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row" id="row-3">
+        <div class="row" id="row-2">
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View third query</h4>
-                        <p class="card-text" id="paragraph">Simple Query to CYKA<br></p>
+                        <h4 class="card-title">View Projects & Researchers by Field</h4>
                         <div class="dropdown">
                             <button class="dropbtn">Select Scientific Field</button>
                             <div class="dropdown-content">
@@ -96,29 +95,29 @@
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View Programs</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show all programs</p>
-                        <a class="btn btn-primary" id="show-btn" href="/programs">Show</a>
+                        <h4 class="card-title">View Young Researchers</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show young researchers</p>
+                        <a class="btn btn-primary" id="show-btn" href="/researchers/young-researchers">Show</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View Projects</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show projects<br></p>
-                        <a class="btn btn-primary" id="show-btn" href="/projects">Show</a>
+                        <h4 class="card-title">View (Not) Busy Researchers</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show (not) busy researchers</p>
+                        <a class="btn btn-primary" id="show-btn" href="/lastquery">Show</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row" id="row-4">
+        <div class="row" id="row-2">
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View fields</h4>
-                        <p class="card-text" id="paragraph">Simple Query to show top 3 field pairs<br></p>
+                        <h4 class="card-title">View Scientific Fields</h4>
+                        <p class="card-text" id="paragraph">Simple Query to show Top-3 Scientific Field pairs</p>
                         <a class="btn btn-primary" id="show-btn" href="/fifthquery">Show</a>
                     </div>
                 </div>
@@ -126,8 +125,8 @@
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View Projects by researcher</h4>
-                        <p class="card-text" id="paragraph">Simple Query to database to show second query</p>
+                        <h4 class="card-title">View Projects by Researcher</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show all the projects a researcher works on</p>
                         <a class="btn btn-primary" id="show-btn" href="/secondquery">Show</a>
                     </div>
                 </div>
@@ -135,13 +134,25 @@
             <div class="col-md-4">
                 <div class="card" id="card-container-layout">
                     <div class="card-body" id="card">
-                        <h4 class="card-title">View 4th query</h4>
-                        <p class="card-text" id="paragraph">Query to show results for 4th query<br></p>
+                        <h4 class="card-title">View Organizations</h4>
+                        <p class="card-text" id="paragraph">Simple Query to show consistent Organizations</p>
                         <a class="btn btn-primary" id="show-btn" href="/fourthquery">Show</a>
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
+        
+        <div class="row" id="row-2">
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View H.F.R.I. employees</h4>
+                        <p class="card-text" id="paragraph">Simple Query to database to show Top-5 employees</p>
+                        <a class="btn btn-primary" id="show-btn" href="/employees">Show</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="/assets/js/jquery.min.js"></script>

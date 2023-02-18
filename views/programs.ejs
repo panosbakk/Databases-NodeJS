@@ -23,11 +23,11 @@
                 <div class="modal-body">
                     <form id="modal-form">
                         <div>
-                            <label for="id"><b>Program ID</b></label><br>
+                            <label for="id">Program ID</label><br>
                             <input type="text" name="id" id="id" readonly></br>
-                            <label for="id"><b>Program Name</b></label><br>
+                            <label for="id">Program Name</label><br>
                             <input type="text" name="prog_name" id="prog_name"></br>
-                            <label for="id"><b>Program Executive</b></label><br>
+                            <label for="id">Program Executive</label><br>
                             <input type="text" name="prog_address" id="prog_address"></br>
                         </div>
                     </form>
@@ -43,6 +43,8 @@
     <%- include("includes/navbar.ejs")%>
 
     <div class="container">
+        <br>
+        <div id="tbody">Simply query to database to show all programs.</div>
         <div class="row" id="row">
             <div class="col-md-12">
                 <div class="card" id="card-container">
@@ -51,12 +53,18 @@
                         <h1 style="margin-top: 5rem;">No Programs found!</h1>
                     <% } else { %>
                         <div class="table-responsive">
+                            <br>
+                            <input type="text" id="myInput1" placeholder="Search by Program ID...">
+                            <input type="text" id="myInput2" placeholder="Search by Program Name...">
+                            <input type="text" id="myInput3" placeholder="Search by Executive Name...">
+                            <button type="button" class="btn btn-success" onclick="myFunction()">Apply Filters</button>
+                            <button type="button" class="btn btn-secondary" onclick="reset()">Reset</button>
                             <table class="table">
                                 <thead id="thead">
                                     <tr>
                                         <th>Program ID</th>
                                         <th>Name</th>
-                                        <th>Address</th>
+                                        <th>Executive</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -90,6 +98,79 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function setModalFields(row) {
+            document.getElementById("id").value = row.dataset.id;
+            document.getElementById("title").value = row.dataset.title;
+            document.getElementById("summary").value = row.dataset.summary;
+            document.getElementById("budget").value = row.dataset.budget;
+            document.getElementById("starting_date").value = row.dataset.starting_date;
+            document.getElementById("end_date").value = row.dataset.end_date;
+            document.getElementById("employee_id").value = row.dataset.employee_id;
+
+            document.getElementById("modal-form").action = "/projects/update/" + row.dataset.id;
+            document.getElementById("modal-form").method = "POST";
+        }
+    </script>   
+
+    <script>
+        function myFunction() {
+          // Declare variables
+          let input1, input2, input3, filter1, filter2, filter3, table, tr, td1, td2, td3, i, txtValue1, txtValue2, txtValue3;
+          input1 = document.getElementById("myInput1");
+          input2 = document.getElementById("myInput2");
+          input3 = document.getElementById("myInput3");
+          filter1 = input1.value.toUpperCase();
+          filter2 = input2.value.toUpperCase();
+          filter3 = input3.value.toUpperCase();
+          if (filter1 == '' && filter2 == '' && filter3 == '') {
+              return;
+          }
+          if (filter1 == '') {
+            filter1 = "XXXXXX";
+          }
+          if (filter2 == '') {
+            filter2 = "XXXXXX";
+          }
+          if (filter3 == '') {
+            filter3 = "XXXXXX";
+          }
+          table = document.getElementById("card");
+          tr = table.getElementsByTagName("tr");
+        
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 0; i < tr.length; i++) {
+            td1 = tr[i].getElementsByTagName("td")[0];
+            td2 = tr[i].getElementsByTagName("td")[1];
+            td3 = tr[i].getElementsByTagName("td")[2];
+            if (td1 || td2 || td3) {
+              txtValue1 = td1.textContent || td1.innerText;
+              txtValue2 = td2.textContent || td2.innerText;
+              txtValue3 = td3.textContent || td3.innerText;
+              if ((txtValue1.toUpperCase().indexOf(filter1) > -1) || (txtValue2.toUpperCase().indexOf(filter2) > -1) || (txtValue3.toUpperCase().indexOf(filter3) > -1)) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+    </script>
+
+    <script>
+        function reset() {
+            document.getElementById('myInput1').value = '';
+            document.getElementById('myInput2').value = '';
+            document.getElementById('myInput3').value = '';
+            let table, tr;
+            table = document.getElementById("card");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                tr[i].style.display = "";
+            }
+        }
+    </script>
 
     <script>
         function setModalFields(row) {

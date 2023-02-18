@@ -16,6 +16,8 @@
     <%- include("includes/navbar.ejs")%>
 
     <div class="container">
+        <br>
+        <div id="tbody">Simply query to database to show which researchers work on 2 or more projects without deliverables.</div>
         <div class="row" id="row">
             <div class="col-md-12">
                 <div class="card" id="card-container">
@@ -29,14 +31,13 @@
                                     <tr>
                                         <th>Researcher Full Name</th>
                                         <th>Projects number</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
                                     <% researchers.forEach((researcher, _) => { %>
                                         <tr>
                                             <td><%= researcher.full_name %></td>
-                                            <td><%= researcher.projects_number</td>
+                                            <td><%= researcher.projects_number %></td>
                                         </tr>
                                     <% }) %>
                                 </tbody>

@@ -10,9 +10,9 @@ INSERT scientific_fields(field_name) VALUES ('Natural science');
 INSERT scientific_fields(field_name) VALUES ('Formal science');
 INSERT scientific_fields(field_name) VALUES ('Social science');
 INSERT scientific_fields(field_name) VALUES ('Applied science');
-source C:\Users\Pipen\Desktop\Databases-NodeJS\dummyDataCreator\dummy_data_updates.txt
 source C:\Users\Pipen\Desktop\Databases-NodeJS\dummyDataCreator\dummy_data_project_researcher_relationship.txt
 source C:\Users\Pipen\Desktop\Databases-NodeJS\dummyDataCreator\dummy_data_project_scientific_field.txt
 source C:\Users\Pipen\Desktop\Databases-NodeJS\dummyDataCreator\dummy_data_employee_relationship.txt
 source C:\Users\Pipen\Desktop\Databases-NodeJS\dummyDataCreator\dummy_data_assessment.txt
 source C:\Users\Pipen\Desktop\Databases-NodeJS\dummyDataCreator\dummy_data_deliverable.txt
+source C:\Users\Pipen\Desktop\Databases-NodeJS\dummyDataCreator\dummy_data_updates.txt

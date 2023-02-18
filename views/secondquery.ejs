@@ -16,6 +16,8 @@
     <%- include("includes/navbar.ejs")%>
 
     <div class="container">
+        <br>
+        <div id="tbody">Simply query to database to show Researchers and the projects they work on.</div>
         <div class="row" id="row">
             <div class="col-md-12">
                 <div class="card" id="card-container">
@@ -25,8 +27,8 @@
                     <% } else { %>
                         <div class="table-responsive">
                             <br>
-                            <input type="text" id="myInput1" placeholder="Filter by researcher ID...">
-                            <input type="text" id="myInput2" placeholder="Filter by researcher name...">
+                            <input type="text" id="myInput1" placeholder="Filter by Researcher ID...">
+                            <input type="text" id="myInput2" placeholder="Filter by Researcher Name...">
                             <button class="btn btn-success" onclick="myFunction()">Apply Filters</button>
                             <button type="button" class="btn btn-secondary" onclick="reset()">Reset</button>
                             <table class="table">
@@ -36,7 +38,6 @@
                                         <th>Researcher Full Name</th>
                                         <th>Project ID</th>
                                         <th>Project Title</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">

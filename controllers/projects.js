@@ -1,6 +1,6 @@
 const { pool } = require('../utils/database');
 
-/* Controller to retrieve grades from database */
+/* Controller to retrieve projects from database */
 exports.getProjects = (req, res, next) => {
 
      /* check for messages in order to show them when rendering the page */
@@ -24,7 +24,7 @@ exports.getProjects = (req, res, next) => {
 
 }
 
-/* Controller to delete grade by ID from database */
+/* Controller to select researcher from project database */
 exports.getSelectResearcherProject = (req, res, next) => {
     /* get id from params */
     const id = req.params.id;
@@ -65,7 +65,7 @@ exports.postProject = (req, res, next) => {
 
     let messages = req.flash("messages");
     if (messages.length == 0) messages = [];
-    /* create the connection, execute query, flash respective message and redirect to grades route */
+    /* create the connection, execute query, flash respective message and redirect to home page */
     pool.getConnection((err, conn) => {
         var sqlQuery = `INSERT INTO projects(title, summary, budget, starting_date, end_date, employee_id) VALUES(?, ?, ?, ?, ?, ?)`;
 
@@ -115,11 +115,14 @@ exports.postUpdateProject = (req, res, next) => {
     const summary = req.body.summary;
     const budget = req.body.budget;
     const starting_date = req.body.starting_date;
+    let end_date = req.body.end_date;
+    if (end_date = '0000-00-00') end_date = null;
+    const employee_id = req.body.employee_id;
     /* create the connection, execute query, flash respective message and redirect to grades route */
     pool.getConnection((err, conn) => {
-        var sqlQuery = `UPDATE projects SET title = ?, summary = ?, budget = ?, starting_date = ? WHERE id = ${id}`;
+        var sqlQuery = `UPDATE projects SET title = ?, summary = ?, budget = ?, starting_date = ?, end_date = ?, employee_id = ? WHERE id = ${id}`;
 
-        conn.promise().query(sqlQuery, [title, summary, budget, starting_date])
+        conn.promise().query(sqlQuery, [title, summary, budget, starting_date, end_date, employee_id])
         .then(() => {
             pool.releaseConnection(conn);
             req.flash('messages', { type: 'success', value: "Successfully updated project!" })
@@ -150,6 +153,4 @@ exports.postDeleteProject = (req, res, next) => {
             res.redirect('/projects');
         })
     })
-
 }
-

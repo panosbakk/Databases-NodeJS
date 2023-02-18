@@ -18,7 +18,7 @@ exports.getProjectsScFi = (req, res, next) => {
         WHERE scientific_fields.id = ${id} AND projects.end_date IS NULL`)
         .then(([rows, fields]) => {
             res.render('thirdquery.ejs', {
-                pageTitle: "Researchers Page",
+                pageTitle: "Projects & Researchers Page",
                 thirdquerys: rows,
                 messages: messages
             })
